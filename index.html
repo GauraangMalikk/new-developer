@@ -279,6 +279,27 @@
 <style id="dc-css">.va-cards.va-3{grid-template-columns:repeat(3,minmax(0,1fr))}.dc-big{width:64px !important;height:64px !important;border-radius:18px !important;flex:none;margin:0 !important}.dc-big svg{width:36px !important;height:36px !important}.stage .dc-slide .dc-big{width:84px !important;height:84px !important}.stage .dc-slide .dc-big svg{width:46px !important;height:46px !important}@media (max-width:1000px){.va-cards.va-3{grid-template-columns:minmax(0,1fr)}}@media (max-width:734px){.dc-big{width:48px !important;height:48px !important}.dc-big svg{width:28px !important;height:28px !important}}</style>
 <style id="dvis-css">.dvis{margin:0}.dvis svg{display:block;width:100%;height:auto}.dc-slide .va-lead .dc-big{display:none !important}.dc-slide .va-cards li{padding:14px 16px}.dc-slide .va-cards li .va-ic{width:36px;height:36px;margin-bottom:2px}.dc-slide .va-cards li .va-ic svg{width:22px;height:22px}.stage .dc-slide{gap:18px}.stage .dc-slide .dvis{max-height:300px}.stage .dc-slide .dvis svg{max-height:300px}.stage .dc-slide .va-cards b{font-size:20px}.stage .dc-slide .va-cards li>span:last-child{font-size:17px}</style>
 <style id="dc-merged-css">.dc-lead{margin:0;font-size:22px;line-height:1.4;color:var(--a-muted,#8e8e93)}.dc-lead b{color:var(--a-text,#f5f5f7)}.dc-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.dc-col{display:grid;align-content:start;gap:6px;padding:16px 18px;border:1px solid var(--a-hair,#3a3a3c);border-radius:20px;min-width:0}.dc-col h4{margin:0;font-size:20px;color:var(--a-text,#f5f5f7)}.dc-col p{margin:0 0 4px;font-size:15px;line-height:1.4;color:var(--a-muted,#8e8e93)}.stage .dc-merged{align-content:center;gap:18px}.stage .dc-merged h3{font-size:48px}.stage .dc-lead{font-size:26px}.stage .dc-col h4{font-size:24px}.stage .dc-col p{font-size:18px}.stage .dc-merged .dvis svg{max-height:none}.dc-merged .dvis .dv-s{font-size:22px}.dc-merged .dvis .dv-k{font-size:20px}.dc-merged .dvis .dv-t{font-size:26px}.dc-merged .dvis text[x="488"]{font-size:24px}@media (max-width:860px){.dc-pair{grid-template-columns:minmax(0,1fr)}}@media (max-width:734px){.dc-lead{font-size:17px}.dc-col{padding:14px}.dc-col h4{font-size:17px}.dc-col p{font-size:14px}}</style>
+<style>
+#db-roles .permission-venn {display:block;width:min(100%,1020px);margin:0 auto;height:auto;overflow:visible}
+#db-roles .role-set {fill:#101012;fill-opacity:.65;stroke:#77777e;stroke-width:1.3}
+#db-roles .shared-lens {fill:#11283c;stroke:#3388bc;stroke-width:.9}
+#db-roles .region-label,#db-roles .permission {font-family:var(--a-text-font,system-ui);text-anchor:middle}
+#db-roles .region-label {fill:#b8b8bf;font-size:14px;font-weight:600}
+#db-roles .shared-region .region-label {fill:#7bc5ff}
+#db-roles .permission {fill:#f5f5f7;font-size:20px;font-weight:620}
+#db-roles .action-icon {fill:none;stroke:#b8b8bf;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#db-roles .shared-region .action-icon {stroke:#63b7ff}
+#db-roles .role-close {margin:0;font-size:25px;line-height:1.35;color:var(--a-muted,#a1a1a6)}
+#db-roles .role-close b {color:var(--a-text,#f5f5f7)}
+@media (max-width:700px) and (orientation:portrait) {
+  .stage-inner:has(> #db-roles) {width:min(100vw,520px)}
+  .stage #db-roles {padding:12px 4px;gap:16px}
+  .stage #db-roles header::before {position:static;display:block;font-size:12px}
+  .stage #db-roles header h3 {font-size:29px}
+  .stage #db-roles .dc-lead,.stage #db-roles .role-close {font-size:17px}
+  #db-roles .region-label {font-size:17px}
+}
+</style>
 </head><body>
 <title>App Development with Siri and AI</title>
 <script>if (/^#(presenter|notes)$/.test(location.hash)) document.documentElement.classList.add(location.hash.slice(1) + "-mode");</script>
@@ -4428,6 +4449,32 @@ html.presenting .gbar .spare-btn { display: none; }
     <p class="src page-only"><a href="https://firebase.google.com/docs/firestore/security/rules-conditions">Firestore rules for access by account</a> · <a href="https://firebase.google.com/docs/firestore/security/rules-fields">Firestore rules for specific fields</a> · <a href="https://developer.apple.com/app-store/review/guidelines/#health-and-health-research">App Review 5.1.3</a></p>
   <!-- security-check:start --><div class="sec-strip talk-only"><div><b>Risk</b><span>Someone reads or rewrites Alex’s data</span></div><div><b>Guard</b><span>Database rules; health data stays on the phone</span></div><div><b>Check</b><span>Try each wrong case on the emulator: Deny</span></div></div><!-- security-check:end -->
   </article>
+
+  <article class="topic review-slide dc-merged" id="db-roles">
+    <header><p class="eyebrow">Databases</p><h3>Who can do what in a workout app?</h3></header>
+    <p class="dc-lead">Each role has its own permissions. <b>The overlap is what both can do.</b></p>
+    <svg class="permission-venn" viewBox="0 0 520 234" role="img" aria-label="Venn diagram for one shared workout. Only the athlete can log a session. Both the athlete and the assigned coach can view the workout. Only the assigned coach can edit the exercises.">
+      <g class="athlete-region">
+        <ellipse class="role-set" cx="170" cy="117" rx="164" ry="108"/>
+        <text class="region-label" x="106" y="72">Athlete only</text>
+        <g class="action-icon" transform="translate(90 88)"><rect x="3" y="3" width="26" height="28" rx="6"/><path d="m9 17 5 5 9-11"/></g>
+        <text class="permission" x="106" y="153">Log a session</text>
+      </g>
+      <g class="coach-region">
+        <ellipse class="role-set" cx="350" cy="117" rx="164" ry="108"/>
+        <text class="region-label" x="414" y="72">Coach only</text>
+        <g class="action-icon" transform="translate(398 88)"><path d="m4 28 2-9L22 3a3 3 0 0 1 4 0l3 3a3 3 0 0 1 0 4L13 26zM19 6l7 7M4 31h25"/></g>
+        <text class="permission" x="414" y="153">Edit exercises</text>
+      </g>
+      <g class="shared-region">
+        <path class="shared-lens" d="M260 26.72 A164 108 0 0 1 260 207.28 A164 108 0 0 1 260 26.72Z"/>
+        <text class="region-label" x="260" y="72">Both roles</text>
+        <g class="action-icon" transform="translate(244 88)"><path d="M0 17s6-10 16-10 16 10 16 10-6 10-16 10S0 17 0 17Z"/><circle cx="16" cy="17" r="4.5"/></g>
+        <text class="permission" x="260" y="153">View workout</text>
+      </g>
+    </svg>
+    <p class="role-close"><b>Role-based access control (RBAC).</b> The server checks whether your role allows the action.</p>
+  </article>
   <article class="topic review-slide security-closer" id="security-recap" data-stage-reveal="answer">
     <header><p class="eyebrow">Privacy · All three checks</p><h3>Three security checks, one rule</h3></header><!-- security-check:start --><p class="sec-badge talk-only"><img src="img/icons/shield-halved.png" alt="">Security check<span class="sec-dots" aria-label="All three: App, Data, AI"><i class="on"></i><i class="on"></i><i class="on"></i></span></p><!-- security-check:end -->
     <p class="ac-req">Alex’s cycle answer: <b>where could it leak?</b></p>
@@ -5017,6 +5064,10 @@ html.presenting .gbar .spare-btn { display: none; }
   "building-pilot-study": [
     "This is a proposed read-only pilot. Start with one office zone. Compare three ways to run the same task and measure response time, wall power and cooling.",
     "A matched comparison comes before any claim about energy savings."
+  ],
+  "db-roles": [
+    "Imagine an athlete and their assigned coach sharing today’s workout. Each circle contains the actions that role can take. The athlete records their completed session. The coach edits the prescribed exercises.",
+    "Point to the blue overlap. Both people can open the workout. Ask what happens if the athlete tries to swap squats for lunges. Editing is outside the athlete’s circle, so the server rejects that change. These are example permissions for this app."
   ],
   "security-cloud-access": [
     "Slide 22 asked about the cycle. That answer is health data, with stricter privacy laws, so it stays on the phone. For the database example we sync something less sensitive: Alex’s gender, saved in the app and in the database.",
@@ -7656,9 +7707,9 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
   /* ---------- chapters, the plan and the presenter cues (shared by the stage, the presenter window and the phone notes view) ---------- */
   var CHAPTER_NAMES = ["Start", "Part 1 · Build a real app", "Part 2 · Add useful AI", "Ship it", "Close · questions"]; // the talk's two parts (30 Oct 2026); Developer stories stays for the full route
   // Chapter of each slide of the 30-minute talk (design spec 2.1). In the every-slide deck a slide that is not listed keeps the chapter before it.
-  var CHAPTERS = {"title-slide": 1, "why-path": 1, "why-local": 1, "segue-local": 1, "promise": 1, "today": 1, "section-why-app": 1, "why-app": 1, "app-platforms": 1, "app-setup": 1, "section-app-capabilities": 1, "app-powers": 1, "app-experience": 1, "app-services": 1, "data-safe": 1, "section-data-security": 1, "app-firebase": 1, "data-case": 1, "db-protect": 1, "app-github": 1, "security-cloud-access": 1, "section-release": 3, "app-iteration": 3, "app-release": 3, "ov-tech": 2, "demo-ai": 2, "demo-siri": 2, "section-own-models": 2, "which-tool": 2, "core-ml": 2, "app-local-models": 2, "any-model": 2, "commit-ai": 2, "trust": 2, "thanks": 4, "any-app": 4, "connect": 2, "ml-stack": 2, "metal": 2, "evals": 2, "meet-commit": 1, "coding-partner": 1, "entities": 2, "model-context": 2, "context": 2, "kumo": 2, "siri-roles": 2, "input-output": 2, "security-recap": 2, "volt-age": 1, "local-ai": 1};
+  var CHAPTERS = {"title-slide": 1, "why-path": 1, "why-local": 1, "segue-local": 1, "promise": 1, "today": 1, "section-why-app": 1, "why-app": 1, "app-platforms": 1, "app-setup": 1, "section-app-capabilities": 1, "app-powers": 1, "app-experience": 1, "app-services": 1, "data-safe": 1, "section-data-security": 1, "app-firebase": 1, "data-case": 1, "db-protect": 1, "app-github": 1, "db-roles": 1, "security-cloud-access": 1, "section-release": 3, "app-iteration": 3, "app-release": 3, "ov-tech": 2, "demo-ai": 2, "demo-siri": 2, "section-own-models": 2, "which-tool": 2, "core-ml": 2, "app-local-models": 2, "any-model": 2, "commit-ai": 2, "trust": 2, "thanks": 4, "any-app": 4, "connect": 2, "ml-stack": 2, "metal": 2, "evals": 2, "meet-commit": 1, "coding-partner": 1, "entities": 2, "model-context": 2, "context": 2, "kumo": 2, "siri-roles": 2, "input-output": 2, "security-recap": 2, "volt-age": 1, "local-ai": 1};
   // Cumulative minutes at the END of each slide of the 30-minute talk, in running order.
-  var PLAN = {"title-slide": 0.5, "why-path": 1.25, "why-local": 2.0, "local-ai": 2.75, "volt-age": 3.5, "segue-local": 4.25, "promise": 5.0, "today": 6.0, "meet-commit": 7.0, "section-why-app": 7.08333333, "why-app": 7.83333333, "app-platforms": 8.41333333, "app-setup": 9.08333333, "coding-partner": 9.83333333, "section-app-capabilities": 9.91666666, "app-powers": 10.66666666, "app-experience": 11.25666666, "app-services": 11.91666666, "data-safe": 12.66666666, "section-data-security": 12.75, "app-firebase": 13.42, "data-case": 14.17, "db-protect": 14.92, "app-github": 16.17, "security-cloud-access": 16.75333333, "ov-tech": 17.42, "demo-ai": 18.00333333, "context": 18.75333333, "model-context": 19.50333333, "connect": 20.25333333, "siri-roles": 21.00333333, "input-output": 21.75333333, "entities": 22.50333333, "demo-siri": 23.33666666, "section-own-models": 23.41999999, "commit-ai": 24.16999999, "ml-stack": 24.91999999, "which-tool": 25.66999999, "core-ml": 26.25333332, "kumo": 27.00333332, "app-local-models": 27.50333332, "any-model": 28.25333332, "evals": 29.00333332, "trust": 29.83333332, "security-recap": 30.58333332, "section-release": 30.66666665, "app-iteration": 31.41666665, "app-release": 32.24666665, "any-app": 32.99666665, "thanks": 33.99666665};
+  var PLAN = {"title-slide": 0.5, "why-path": 1.25, "why-local": 2.0, "local-ai": 2.75, "volt-age": 3.5, "segue-local": 4.25, "promise": 5.0, "today": 6.0, "meet-commit": 7.0, "section-why-app": 7.08333333, "why-app": 7.83333333, "app-platforms": 8.41333333, "app-setup": 9.08333333, "coding-partner": 9.83333333, "section-app-capabilities": 9.91666666, "app-powers": 10.66666666, "app-experience": 11.25666666, "app-services": 11.91666666, "data-safe": 12.66666666, "section-data-security": 12.75, "app-firebase": 13.42, "data-case": 14.17, "db-protect": 14.92, "app-github": 16.17, "security-cloud-access": 16.46333333, "db-roles": 16.75333333, "ov-tech": 17.42, "demo-ai": 18.00333333, "context": 18.75333333, "model-context": 19.50333333, "connect": 20.25333333, "siri-roles": 21.00333333, "input-output": 21.75333333, "entities": 22.50333333, "demo-siri": 23.33666666, "section-own-models": 23.41999999, "commit-ai": 24.16999999, "ml-stack": 24.91999999, "which-tool": 25.66999999, "core-ml": 26.25333332, "kumo": 27.00333332, "app-local-models": 27.50333332, "any-model": 28.25333332, "evals": 29.00333332, "trust": 29.83333332, "security-recap": 30.58333332, "section-release": 30.66666665, "app-iteration": 31.41666665, "app-release": 32.24666665, "any-app": 32.99666665, "thanks": 33.99666665};
   var PLAN_IDS = Object.keys(PLAN);
   var TALK_MS = PLAN_IDS.length ? PLAN[PLAN_IDS[PLAN_IDS.length - 1]] * 60000 : 30 * 60000; // the route's planned end, so the timer follows the talk's real length
   var NOTES = {}; // { slide id: [short cue lines] } from <script id="talk-notes">
@@ -8173,7 +8224,7 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
   // The 30-minute talk is Present mode's default running order; the switch in the contents presents every slide.
   // The 30-minute talk is a tour of the site (plan 8b): the Overview, into New to app development, back to the Overview's technologies, then the stories.
   // The ov-* slides are the Overview's own sections, where the speaker "clicks in".
-  var TALK30 = ["title-slide", "why-path", "why-local", "local-ai", "volt-age", "segue-local", "promise", "today", "meet-commit", "section-why-app", "why-app", "app-platforms", "app-setup", "coding-partner", "section-app-capabilities", "app-powers", "app-experience", "app-services", "data-safe", "section-data-security", "app-firebase", "data-case", "db-protect", "app-github", "security-cloud-access", "ov-tech", "demo-ai", "context", "model-context", "connect", "siri-roles", "input-output", "entities", "demo-siri", "section-own-models", "commit-ai", "ml-stack", "which-tool", "core-ml", "kumo", "app-local-models", "any-model", "evals", "trust", "security-recap", "section-release", "app-iteration", "app-release", "any-app", "thanks"]; // 30 slides including the app-development primer; talk30() skips ids not on the page
+  var TALK30 = ["title-slide", "why-path", "why-local", "local-ai", "volt-age", "segue-local", "promise", "today", "meet-commit", "section-why-app", "why-app", "app-platforms", "app-setup", "coding-partner", "section-app-capabilities", "app-powers", "app-experience", "app-services", "data-safe", "section-data-security", "app-firebase", "data-case", "db-protect", "app-github", "security-cloud-access", "db-roles", "ov-tech", "demo-ai", "context", "model-context", "connect", "siri-roles", "input-output", "entities", "demo-siri", "section-own-models", "commit-ai", "ml-stack", "which-tool", "core-ml", "kumo", "app-local-models", "any-model", "evals", "trust", "security-recap", "section-release", "app-iteration", "app-release", "any-app", "thanks"]; // 30 slides including the app-development primer; talk30() skips ids not on the page
   var KEY_TALK = "mcgill-talk", talk = load(KEY_TALK) === "all" ? "all" : "30", deck = [];
   function slideTitle(el) { var h = talk === "30" && el.querySelector(".trip-stage h3, .part-divider h3") || el.querySelector("h1, h2, h3"); return h ? h.textContent.replace(/\s+/g, " ").trim() : el.id; }
   function talk30() {
@@ -8304,7 +8355,7 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
     ["Opening and agenda", ["title-slide", "why-path", "why-local", "local-ai", "volt-age", "segue-local", "promise", "today", "meet-commit"]],
     ["Why build an app?", ["section-why-app", "why-app", "app-platforms", "app-setup", "coding-partner"]],
     ["What an app can do", ["section-app-capabilities", "app-powers", "app-experience", "app-services", "data-safe"]],
-    ["Databases", ["section-data-security", "app-firebase", "data-case", "db-protect", "app-github", "security-cloud-access"]],
+    ["Databases", ["section-data-security", "app-firebase", "data-case", "db-protect", "app-github", "security-cloud-access", "db-roles"]],
     ["Why add AI locally?", ["ov-tech", "demo-ai", "context", "model-context", "connect", "siri-roles", "input-output", "entities", "demo-siri"]],
     ["Train or bring your own model", ["section-own-models", "commit-ai", "ml-stack", "which-tool", "core-ml", "kumo"]],
     ["Where the model runs", ["app-local-models", "any-model", "evals", "trust", "security-recap"]],
@@ -10029,6 +10080,7 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
     // drawings part by part). step = gap between items in ms; light = parts that a highlight passes along.
     var M = {
       "local-ai": { items: [".dc-lead", ".dc-col", ".va-close"], step: 160 },
+      "db-roles": { items: [".dc-lead", ".athlete-region", ".coach-region", ".shared-region", ".role-close"], still: true },
       "volt-age": { items: [".va-lead", ".va-cards li", ".va-where", ".va-close", ".va-thanks"], step: 120 },
       "segue-local": { items: [".segue-sub", ".segue-visual .sv-part", ".segue-close"], step: 160 },
       "promise": { items: [".statement-line"] },
