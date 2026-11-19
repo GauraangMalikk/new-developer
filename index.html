@@ -300,6 +300,18 @@
   #db-roles .region-label {font-size:17px}
 }
 </style>
+<style id="attention-mode-css">
+#stage-game-btn[aria-pressed="true"]{background:var(--a-blue,#0071e3);color:#fff;border-color:transparent}
+.gm-float{position:absolute;z-index:40;border:5px solid #1c1c1e;border-radius:26px;overflow:hidden;background:#000;cursor:grab;touch-action:none;user-select:none}
+.gm-float.dragging{cursor:grabbing}
+.gm-float.gm-parked{left:0;top:0;opacity:0;pointer-events:none;z-index:-1}
+.gm-float iframe{position:absolute;top:-14%;left:50%;height:128%;border:0;transform:translateX(-50%);pointer-events:none;opacity:0;transition:opacity .6s}.gm-float.ready iframe{opacity:1}
+.gm-wait{position:absolute;inset:0;display:grid;place-content:center;gap:4px;text-align:center;color:#8e8e93;font:600 12px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0b0b0c;transition:opacity .6s}.gm-wait b{color:#f5f5f7;font-size:14px}.gm-float.ready .gm-wait{opacity:0}.gm-float:not(.ready) .gm-tag{opacity:0}
+.gm-cover{position:absolute;inset:0}
+.gm-tag{position:absolute;left:50%;bottom:7px;transform:translateX(-50%);padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.62);color:#fff;font:600 10.5px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;width:max-content;max-width:calc(100% - 14px);text-align:center;pointer-events:none}
+.gm-probe{position:fixed;inset:0}
+.gm-note{position:absolute;inset:0;display:grid;place-content:center;gap:6px;padding:10px;text-align:center;color:#a1a1a6;font:500 11px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#111}.gm-note b{color:#fff;font-size:13px}
+</style>
 </head><body>
 <title>App Development with Siri and AI</title>
 <script>if (/^#(presenter|notes)$/.test(location.hash)) document.documentElement.classList.add(location.hash.slice(1) + "-mode");</script>
@@ -1222,7 +1234,7 @@ html.presenting, html.presenting body, html.voting, html.voting body { overflow:
       </article>
 
       <section class="hx hx-agenda" id="home-agenda" aria-labelledby="hx-agenda-t"><p class="hx-eyebrow">What we’ll do together</p><h2 id="hx-agenda-t">Build an app. Add AI. Keep improving.</h2><div class="hx-parts"><a class="hx-part" href="#new-to-ai" data-present-at="section-why-app"><span class="hx-phone"><img src="media/commit-rec-tour.jpg" width="1206" height="2622" loading="lazy" alt="Commit’s Today screen"></span><span class="hx-part-text"><span class="hx-k">Part 1</span><h3>Build a real app</h3><p>With Commit, a wellness app already on TestFlight.</p><span class="hx-chips"><span>Why build an app?</span><span>What an app can do</span><span>Databases</span></span><span class="hx-go">Open Part 1 in the slides <span aria-hidden="true">→</span></span></span></a><a class="hx-part" href="#whats-new" data-present-at="ov-tech"><span class="hx-phone"><img src="img/commit-siri-answer.jpg" width="1206" height="2622" loading="lazy" alt="Siri reading today’s workout from Commit"></span><span class="hx-part-text"><span class="hx-k">Part 2</span><h3>Add useful AI</h3><p>Siri and on-device personalization, inside Commit.</p><span class="hx-chips"><span>Why add AI locally?</span><span>Train or bring your own model</span><span>Where the model runs</span></span><span class="hx-go">Open Part 2 in the slides <span aria-hidden="true">→</span></span></span></a></div><p class="hx-then"><b>Then:</b> ship it to real phones, and look after it.</p></section>
-<section class="hx hx-commit" id="home-commit" aria-labelledby="hx-commit-t"><p class="hx-eyebrow">The example app</p><h2 id="hx-commit-t">Meet Commit, the app we’ll follow</h2><div class="hx-screens"><figure><span class="hx-phone"><img src="img/commit-final-today.jpg" loading="lazy" alt="Commit Today screen"></span><figcaption><b>Today</b><span>Small daily habits to tick off</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-rec-training.jpg" loading="lazy" alt="Commit Training screen"></span><figcaption><b>Training</b><span>This week’s plan, one session a day</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-rec-checkin.jpg" loading="lazy" alt="Commit Check-in screen"></span><figcaption><b>Check-in</b><span>Mood, sleep, calm and what’s sore</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-rec-workout.jpg" loading="lazy" alt="Commit Workout screen"></span><figcaption><b>Workout</b><span>Adapts to your check-in, with videos</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-siri-answer.jpg" loading="lazy" alt="Commit Siri screen"></span><figcaption><b>Siri</b><span>Today’s workout without opening the app</span></figcaption></figure></div><p class="hx-credit">Built with <b>Daniela Suarez</b>, founder of <b>Elovlo Inc.</b></p></section>
+<section class="hx hx-commit" id="home-commit" aria-labelledby="hx-commit-t"><p class="hx-eyebrow">The example app</p><h2 id="hx-commit-t">Meet Commit, the app we’ll follow</h2><p class="hx-lede"><a href="commit-siri-demo.html#soreness">Watch Siri adjust a workout</a></p><div class="hx-screens"><figure><span class="hx-phone"><img src="img/commit-final-today.jpg" loading="lazy" alt="Commit Today screen"></span><figcaption><b>Today</b><span>Small daily habits to tick off</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-rec-training.jpg" loading="lazy" alt="Commit Training screen"></span><figcaption><b>Training</b><span>This week’s plan, one session a day</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-rec-checkin.jpg" loading="lazy" alt="Commit Check-in screen"></span><figcaption><b>Check-in</b><span>Mood, sleep, calm and what’s sore</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-rec-workout.jpg" loading="lazy" alt="Commit Workout screen"></span><figcaption><b>Workout</b><span>Adapts to your check-in, with videos</span></figcaption></figure><figure><span class="hx-phone"><img src="img/commit-siri-answer.jpg" loading="lazy" alt="Commit Siri screen"></span><figcaption><b>Siri</b><span>Today’s workout without opening the app</span></figcaption></figure></div><p class="hx-credit">Built with <b>Daniela Suarez</b>, founder of <b>Elovlo Inc.</b></p></section>
 <section class="hx hx-words" id="home-words" aria-labelledby="hx-words-t"><p class="hx-eyebrow">The words we’ll use</p><h2 id="hx-words-t">Eight words for adding AI to an app</h2><p class="hx-lede">In the order the talk explains them.</p><ol class="hx-terms"><li><span class="hx-n">1</span><b>Foundation Models</b><span>Apple’s model, from Swift</span></li><li><span class="hx-n">2</span><b>On-device model</b><span>It runs on the phone</span></li><li><span class="hx-n">3</span><b>Context</b><span>Instructions + facts you give</span></li><li><span class="hx-n">4</span><b>Tools</b><span>Functions it can call</span></li><li><span class="hx-n">5</span><b>Typed answers</b><span>Swift fields, not free text</span></li><li><span class="hx-n">6</span><b>App Intents</b><span>Actions Siri can run</span></li><li><span class="hx-n">7</span><b>Image input</b><span>Read a photo or a sign</span></li><li><span class="hx-n">8</span><b>Evaluations</b><span>Tests that show it works</span></li></ol><p class="hx-more-k">On the website too</p><p class="hx-more"><a href="#technologies">Private Cloud Compute</a><a href="#technologies">Core AI and Core ML</a><a href="#technologies">Create ML</a><a href="#technologies">MLX</a><a href="#technologies">Vision</a><a href="#technologies">Spotlight and app memory</a><a href="#technologies">Writing Tools</a><a href="#technologies">Genmoji</a><a href="#technologies">Apple’s model in Terminal</a></p></section>
 <article class="topic visual-topic pageslide" id="ov-ways">
         <!-- visual:ov-ways-part:start --><div class="part-divider talk-only"><div class="part-text"><p class="eyebrow">Part 1 · 15.5 minutes</p><h3 class="part-title">Build a real app</h3><p class="part-line">Two real apps: Commit, a wellness app on TestFlight, and Passage, a Montréal métro app we built.</p><ol class="part-chips"><li>Opening and agenda</li><li>Why build an app?</li><li>What an app can do</li><li>Databases</li></ol></div><div class="part-phones"><figure class="phone-media"><video class="phone-video" src="media/commit-174-tour.mp4" poster="media/commit-174-tour.jpg" muted loop playsinline preload="none" aria-label="Commit"></video><figcaption>Commit</figcaption></figure><figure class="phone-media"><video class="phone-video" src="media/passage-phone-route.mp4" poster="media/passage-phone-route.jpg" muted loop playsinline preload="none" aria-label="Passage"></video><figcaption>Passage</figcaption></figure></div></div><!-- visual:ov-ways-part:end --><header><p class="eyebrow">Overview</p><h2>Build the app. Then add useful AI.</h2><p class="ps-line">Start with app development, or explore how to add AI features to your app.</p></header><!-- visual:ov-ways-story:start --><div class="story-chapter-visual"><figure class="visual-diagram"><svg xmlns="http://www.w3.org/2000/svg" class="teaching-svg" viewBox="0 0 720 325" role="img" aria-labelledby="vx-ov-ways-story-entry-title"><title id="vx-ov-ways-story-entry-title">Build your app using Swift and SwiftUI in Xcode. Then add useful AI features to the working app with selected context and tools.</title><style>.teaching-svg text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:var(--ink,#1d1d1f)}
@@ -2614,7 +2626,7 @@ print(lang?.rawValue ?? "?")   // en</code></pre>
 .teaching-svg .vx-badge{font-size:18px;font-weight:700;fill:#fff}
 .vx-dot{fill:#3384d9}
 .teaching-svg .vx-mono{font-size:18px;font-family:ui-monospace,Menlo,monospace;fill:var(--muted,#626267)}
-</style><circle cx="22" cy="33" r="15" class="vx-dot"/><text x="22" y="39" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">1</tspan></text><text x="100" y="41" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="100" dy="0">Training set</tspan></text><text x="100" y="69" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="100" dy="0">500 labelled photos</tspan></text><rect x="8" y="88" width="164" height="52" rx="13" class="vx-card"/><g transform="translate(16 91) scale(0.676471)"><path d="M33 47Q9 47 8 20Q32 21 34 43Q34 13 58 10Q61 36 38 47Z" fill="#23774d"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><text x="69" y="121" text-anchor="start" class="vx-body" data-diagram-label="body"><tspan x="69" dy="0">Mint</tspan></text><rect x="8" y="148" width="164" height="52" rx="13" class="vx-card"/><g transform="translate(16 151) scale(0.676471)"><path d="M33 54Q9 47 12 22Q21 7 35 25Q45 5 57 20Q65 42 33 54Z" fill="#367946"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><text x="69" y="181" text-anchor="start" class="vx-body" data-diagram-label="body"><tspan x="69" dy="0">Basil</tspan></text><rect x="8" y="208" width="164" height="52" rx="13" class="vx-card"/><g transform="translate(16 211) scale(0.676471)"><path d="M34 60L30 44L15 42L13 35L29 36L28 30L16 26L18 21L31 26L33 17L40 8L43 16L37 28L49 22L52 27L39 36L55 33L56 39L39 46Z" fill="#436d35"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><text x="69" y="241" text-anchor="start" class="vx-body" data-diagram-label="body"><tspan x="69" dy="0">Fern</tspan></text><g class="rv rv1"><path d="M180 171 L222 171" class="vx-link"/><path d="M213 177 L222 171 L213 165" class="vx-link"/><rect x="232" y="81" width="240" height="157" rx="17" class="vx-card"/><text x="352" y="123" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="352" dy="0">Create ML</tspan></text><text x="352" y="151" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="352" dy="0">Train on your Mac</tspan></text><rect x="249" y="170" width="206" height="49" rx="12" class="vx-soft"/><g data-diagram-icon="doc" transform="translate(258 178) scale(0.6666666666666666)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4h17l9 9v31H12Z"/><path d="M29 4v9h9M18 24h14M18 31h14"/></g><text x="298" y="200" text-anchor="start" class="vx-mono" data-diagram-label="mono"><tspan x="298" dy="0">Plants.mlmodel</tspan></text><path d="M221 246H483L469 259H235Z" class="vx-line"/><circle cx="232" cy="81" r="15" class="vx-dot"/><text x="232" y="87" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="232" dy="0">2</tspan></text></g><g class="rv rv2"><path d="M482 171 L530 171" class="vx-link"/><path d="M521 177 L530 171 L521 165" class="vx-link"/><rect x="540" y="8" width="172" height="286" rx="19" class="vx-soft"/><path d="M603.64 18 H648.36" class="vx-line"/><path d="M608.8 284 H643.2" class="vx-line"/><text x="626" y="51" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="626" dy="0">Core ML</tspan></text><rect x="555" y="70" width="142" height="112" rx="14" fill="#e2f1d6"/><g transform="translate(580 76) scale(1.35294)"><path d="M33 47Q9 47 8 20Q32 21 34 43Q34 13 58 10Q61 36 38 47Z" fill="#23774d"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><path d="M565 98V81H582M670 81H687V98M565 154V171H582M670 171H687V154" fill="none" stroke="#23774d" stroke-width="2" stroke-linecap="round"/><rect x="555" y="194" width="142" height="57" rx="12" class="vx-blue"/><text x="626" y="218" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="626" dy="0">Prediction</tspan></text><text x="626" y="243" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="626" dy="0">Mint</tspan></text><text x="626" y="276" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="626" dy="0">On the iPhone</tspan></text><circle cx="546" cy="26" r="15" class="vx-dot"/><text x="546" y="32" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="546" dy="0">3</tspan></text></g><g class="rv rv2"><text x="360" y="330" text-anchor="middle" class="vx-body" data-diagram-label="body"><tspan x="360" dy="0">Core ML chooses the CPU, GPU or Neural Engine. From PyTorch? Convert with coremltools.</tspan></text></g></svg><figcaption>Train it, convert it, run it on the phone.</figcaption><span class="visual-pan-hint">Swipe to explore the diagram.</span></figure><!-- visual:core-ml-diagram:end --><details class="visual-reading-only"><summary>Read the full explanation</summary><div>
+</style><circle cx="22" cy="33" r="15" class="vx-dot"/><text x="22" y="39" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">1</tspan></text><text x="100" y="41" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="100" dy="0">Training set</tspan></text><text x="100" y="69" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="100" dy="0">500 labelled photos</tspan></text><rect x="8" y="88" width="164" height="52" rx="13" class="vx-card"/><g transform="translate(16 91) scale(0.676471)"><path d="M33 47Q9 47 8 20Q32 21 34 43Q34 13 58 10Q61 36 38 47Z" fill="#23774d"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><text x="69" y="121" text-anchor="start" class="vx-body" data-diagram-label="body"><tspan x="69" dy="0">Mint</tspan></text><rect x="8" y="148" width="164" height="52" rx="13" class="vx-card"/><g transform="translate(16 151) scale(0.676471)"><path d="M33 54Q9 47 12 22Q21 7 35 25Q45 5 57 20Q65 42 33 54Z" fill="#367946"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><text x="69" y="181" text-anchor="start" class="vx-body" data-diagram-label="body"><tspan x="69" dy="0">Basil</tspan></text><rect x="8" y="208" width="164" height="52" rx="13" class="vx-card"/><g transform="translate(16 211) scale(0.676471)"><path d="M34 60L30 44L15 42L13 35L29 36L28 30L16 26L18 21L31 26L33 17L40 8L43 16L37 28L49 22L52 27L39 36L55 33L56 39L39 46Z" fill="#436d35"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><text x="69" y="241" text-anchor="start" class="vx-body" data-diagram-label="body"><tspan x="69" dy="0">Fern</tspan></text><g class="rv rv1"><path d="M180 171 L222 171" class="vx-link"/><path d="M213 177 L222 171 L213 165" class="vx-link"/><rect x="232" y="81" width="240" height="157" rx="17" class="vx-card"/><text x="352" y="123" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="352" dy="0">Create ML</tspan></text><text x="352" y="151" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="352" dy="0">Train on your Mac</tspan></text><rect x="249" y="170" width="206" height="49" rx="12" class="vx-soft"/><g data-diagram-icon="doc" transform="translate(258 178) scale(0.6666666666666666)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4h17l9 9v31H12Z"/><path d="M29 4v9h9M18 24h14M18 31h14"/></g><text x="298" y="200" text-anchor="start" class="vx-mono" data-diagram-label="mono"><tspan x="298" dy="0">Plants.mlmodel</tspan></text><path d="M221 246H483L469 259H235Z" class="vx-line"/><circle cx="232" cy="81" r="15" class="vx-dot"/><text x="232" y="87" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="232" dy="0">2</tspan></text></g><g class="rv rv2"><path d="M482 171 L530 171" class="vx-link"/><path d="M521 177 L530 171 L521 165" class="vx-link"/><rect x="540" y="8" width="172" height="286" rx="19" class="vx-soft"/><path d="M603.64 18 H648.36" class="vx-line"/><path d="M608.8 284 H643.2" class="vx-line"/><text x="626" y="51" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="626" dy="0">Core ML</tspan></text><rect x="555" y="70" width="142" height="112" rx="14" fill="#e2f1d6"/><g transform="translate(580 76) scale(1.35294)"><path d="M33 47Q9 47 8 20Q32 21 34 43Q34 13 58 10Q61 36 38 47Z" fill="#23774d"/><path d="M34 60L35 44L42 30M35 44L22 35" fill="none" stroke="#e2f1d6" stroke-width="2" stroke-linecap="round"/></g><path d="M565 98V81H582M670 81H687V98M565 154V171H582M670 171H687V154" fill="none" stroke="#23774d" stroke-width="2" stroke-linecap="round"/><rect x="555" y="194" width="142" height="57" rx="12" class="vx-blue"/><text x="626" y="218" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="626" dy="0">Prediction</tspan></text><text x="626" y="243" text-anchor="middle" class="vx-label" data-diagram-label="label"><tspan x="626" dy="0">Mint</tspan></text><text x="626" y="276" text-anchor="middle" class="vx-small" data-diagram-label="small"><tspan x="626" dy="0">On the iPhone</tspan></text><circle cx="546" cy="26" r="15" class="vx-dot"/><text x="546" y="32" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="546" dy="0">3</tspan></text></g><g class="rv rv2"><text x="360" y="318" text-anchor="middle" class="vx-body" style="font-size:18px" data-diagram-label="body"><tspan x="360" dy="0">Core ML chooses the CPU, GPU or Neural Engine.</tspan><tspan x="360" dy="22">From PyTorch? Convert with coremltools.</tspan></text></g></svg><figcaption>Train it, convert it, run it on the phone.</figcaption><span class="visual-pan-hint">Swipe to explore the diagram.</span></figure><!-- visual:core-ml-diagram:end --><details class="visual-reading-only"><summary>Read the full explanation</summary><div>
             <ol class="flow">
               <li><span class="box"><b>Photos</b><span>500 labelled plant photos</span></span></li>
               <li><span class="box"><b>Create ML</b><span>Trains on your Mac, no code</span></span></li>
@@ -3329,7 +3341,7 @@ Evaluator { _, out in
 .teaching-svg .vx-badge{font-size:18px;font-weight:700;fill:#fff}
 .vx-dot{fill:#3384d9}
 .teaching-svg .vx-mono{font-size:18px;font-family:ui-monospace,Menlo,monospace;fill:var(--muted,#626267)}
-</style><g transform="translate(300 4)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round"><circle cx="18" cy="12" r="8"/><path d="M3 36q15-22 30 0"/></g><text x="318" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="318" dy="0">You</tspan></text><rect x="387" y="6" width="22" height="40" rx="6" class="vx-soft"/><text x="398" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="398" dy="0">Your phone</tspan></text><g data-diagram-icon="company" transform="translate(503 6) scale(.7)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44V8h22v36M30 18h10v26M4 44h40M15 16h8M15 24h8M15 32h8"/></g><text x="520" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="520" dy="0">Company</tspan></text><g data-diagram-icon="cloud" transform="translate(622 8) scale(0.75)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36a10 10 0 0 1 0-20 14 14 0 0 1 27 3 9 9 0 0 1-1 17Z"/></g><text x="640" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="640" dy="0">Model provider</tspan></text><path d="M458 2V196" class="vx-line" style="stroke:var(--muted,#8e8e93);stroke-width:1.5" stroke-dasharray="7 7"/><text x="450" y="80" text-anchor="end" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="450" dy="0">stays</tspan></text><text x="466" y="80" text-anchor="start" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="466" dy="0">leaves the phone</tspan></text><g data-diagram-node="trust-local"><circle cx="22" cy="104" r="15" class="vx-dot"/><text x="22" y="110" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">1</tspan></text><text x="48" y="110" text-anchor="start" class="vx-small" style="font-size:18px;font-weight:650;fill:var(--ink,#1d1d1f)" data-diagram-label="small"><tspan x="48" dy="0">Local</tspan></text><text x="196" y="110" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="196" dy="0">phone only</tspan></text><path d="M318 104H398" class="vx-link"/><circle cx="318" cy="104" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="398" cy="104" r="9" class="vx-dot"/><text x="414" y="109" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="414" dy="0">Nothing leaves. Works offline.</tspan></text></g><g data-diagram-node="trust-company"><circle cx="22" cy="146" r="15" class="vx-dot"/><text x="22" y="152" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">2</tspan></text><text x="48" y="152" text-anchor="start" class="vx-small" style="font-size:18px;font-weight:650;fill:var(--ink,#1d1d1f)" data-diagram-label="small"><tspan x="48" dy="0">Company</tspan></text><text x="196" y="152" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="196" dy="0">they host it</tspan></text><path d="M318 146H520" class="vx-link"/><circle cx="318" cy="146" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="398" cy="146" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="520" cy="146" r="9" class="vx-dot"/><text x="536" y="151" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="536" dy="0">One company sees it</tspan></text></g><g class="trust-api-row"><g data-diagram-node="trust-provider"><circle cx="22" cy="188" r="15" class="vx-dot"/><text x="22" y="194" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">3</tspan></text><text x="48" y="194" text-anchor="start" class="vx-small" style="font-size:18px;font-weight:650;fill:var(--ink,#1d1d1f)" data-diagram-label="small"><tspan x="48" dy="0">Provider API</tspan></text><text x="196" y="194" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="196" dy="0">sent on</tspan></text><path d="M318 188H640" class="vx-link"/><circle cx="318" cy="188" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="398" cy="188" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="520" cy="188" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="640" cy="188" r="9" class="vx-dot"/><text x="656" y="193" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="656" dy="0">Two companies</tspan></text><text x="580" y="182" text-anchor="middle" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="580" dy="0">API</tspan></text></g><text x="360" y="232" text-anchor="middle" class="vx-label" style="font-size:19px" data-diagram-label="label"><tspan x="360" dy="0">The further it travels, the more people you trust.</tspan></text></g></svg><figcaption>Who holds the data</figcaption><span class="visual-pan-hint">Swipe to explore the diagram.</span></figure><div class="trust-api" data-step="1" data-label="Next: a model API" aria-hidden="true"></div></div><!-- visual:trust-lanes:end -->
+</style><g transform="translate(300 4)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round"><circle cx="18" cy="12" r="8"/><path d="M3 36q15-22 30 0"/></g><text x="318" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="318" dy="0">You</tspan></text><rect x="387" y="6" width="22" height="40" rx="6" class="vx-soft"/><text x="398" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="398" dy="0">Your phone</tspan></text><g data-diagram-icon="company" transform="translate(503 6) scale(.7)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44V8h22v36M30 18h10v26M4 44h40M15 16h8M15 24h8M15 32h8"/></g><text x="520" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="520" dy="0">Company</tspan></text><g data-diagram-icon="cloud" transform="translate(622 8) scale(0.75)" fill="none" stroke="#3384d9" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36a10 10 0 0 1 0-20 14 14 0 0 1 27 3 9 9 0 0 1-1 17Z"/></g><text x="640" y="62" text-anchor="middle" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="640" dy="0">Model provider</tspan></text><path d="M458 2V196" class="vx-line" style="stroke:var(--muted,#8e8e93);stroke-width:1.5" stroke-dasharray="7 7"/><text x="450" y="80" text-anchor="end" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="450" dy="0">stays</tspan></text><text x="466" y="80" text-anchor="start" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="466" dy="0">leaves the phone</tspan></text><g data-diagram-node="trust-local"><circle cx="22" cy="104" r="15" class="vx-dot"/><text x="22" y="110" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">1</tspan></text><text x="48" y="110" text-anchor="start" class="vx-small" style="font-size:18px;font-weight:650;fill:var(--ink,#1d1d1f)" data-diagram-label="small"><tspan x="48" dy="0">Local</tspan></text><text x="196" y="110" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="196" dy="0">phone only</tspan></text><path d="M318 104H398" class="vx-link"/><circle cx="318" cy="104" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="398" cy="104" r="9" class="vx-dot"/><text x="414" y="109" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="414" dy="0">Nothing leaves. Works offline.</tspan></text></g><g data-diagram-node="trust-company"><circle cx="22" cy="146" r="15" class="vx-dot"/><text x="22" y="152" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">2</tspan></text><text x="48" y="152" text-anchor="start" class="vx-small" style="font-size:18px;font-weight:650;fill:var(--ink,#1d1d1f)" data-diagram-label="small"><tspan x="48" dy="0">Company</tspan></text><text x="196" y="152" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="196" dy="0">they host it</tspan></text><path d="M318 146H520" class="vx-link"/><circle cx="318" cy="146" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="398" cy="146" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="520" cy="146" r="9" class="vx-dot"/><text x="536" y="151" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="536" dy="0">One company sees it</tspan></text></g><g class="trust-api-row"><g data-diagram-node="trust-provider"><circle cx="22" cy="188" r="15" class="vx-dot"/><text x="22" y="194" text-anchor="middle" class="vx-badge" data-diagram-label="badge"><tspan x="22" dy="0">3</tspan></text><text x="48" y="194" text-anchor="start" class="vx-small" style="font-size:18px;font-weight:650;fill:var(--ink,#1d1d1f)" data-diagram-label="small"><tspan x="48" dy="0">Provider API</tspan></text><text x="196" y="194" text-anchor="start" class="vx-small" style="font-size:14px" data-diagram-label="small"><tspan x="196" dy="0">sent on</tspan></text><path d="M318 188H640" class="vx-link"/><circle cx="318" cy="188" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="398" cy="188" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="520" cy="188" r="6" fill="var(--card,#fff)" stroke="#3384d9" stroke-width="3"/><circle cx="640" cy="188" r="9" class="vx-dot"/><text x="656" y="193" text-anchor="start" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="656" dy="-1">Two</tspan><tspan x="656" dy="14">companies</tspan></text><text x="580" y="182" text-anchor="middle" class="vx-small" style="font-size:13px" data-diagram-label="small"><tspan x="580" dy="0">API</tspan></text></g><text x="360" y="232" text-anchor="middle" class="vx-label" style="font-size:19px" data-diagram-label="label"><tspan x="360" dy="0">The further it travels, the more people you trust.</tspan></text></g></svg><figcaption>Who holds the data</figcaption><span class="visual-pan-hint">Swipe to explore the diagram.</span></figure><div class="trust-api" data-step="1" data-label="Next: a model API" aria-hidden="true"></div></div><!-- visual:trust-lanes:end -->
         <div class="explain">
           <div class="ways hopways page-only">
             <div class="way one"><div class="way-say"><span class="verdict">Local configuration</span><h4>Your phone holds it</h4><p>In this local-only configuration, app records and model processing stay on the phone. Online tools and sync are separate choices.</p></div><ol class="hops trust-flow" aria-label="You and your phone: records and model processing stay on the device in this local-only configuration."><li class="node you"><img class="ic" src="img/icons/user.png" width="96" height="96" alt=""><span>You</span></li><li class="hop" aria-hidden="true" style="--i:1"></li><li class="node held" style="--i:1"><span><b>Your phone</b>records + local model</span></li></ol></div>
@@ -4555,7 +4567,7 @@ html.presenting .gbar .spare-btn { display: none; }
   <p class="stage-presenter-status" id="stage-presenter-status" role="status" hidden></p>
   <aside class="stage-notes" id="stage-notes" aria-label="Speaker notes" hidden><p class="sn-h"><b>Notes</b> <span id="sn-title"></span><button type="button" id="sn-close" aria-label="Close the notes">×</button></p><ul id="sn-list"></ul></aside>
   <div class="stage-ov" id="stage-ov" role="dialog" aria-label="All slides" hidden></div>
-  <div class="stage-bar" id="stage-bar" title="Keys: → next · ← back · S presenter view · O overview · N notes · T stop the build timer · C copy the prompt · B blank · Esc leave"><button type="button" class="stage-time" id="stage-time" title="Time since you started presenting. Click to restart it.">0:00</button><span id="stage-build-slot"><button type="button" class="stage-time build" id="stage-build" title="Time since you copied the prompt. Click (or press T) to stop it; click again to hide it." hidden>⏱ 00:00</button></span><span class="stage-ch" id="stage-chapter"></span><span id="stage-pos">Slide 1</span><span class="bar-nav"><button type="button" id="stage-prev">Back</button><button type="button" id="stage-next">Next</button><select id="stage-jump" aria-label="Go to slide"></select><span id="stage-question-slot"><button type="button" id="stage-live" aria-pressed="false" hidden>Question off</button></span><button type="button" id="stage-fullscreen" aria-pressed="false">Fullscreen</button><button type="button" id="passage-dock-toggle" aria-pressed="false" hidden>App beside slides</button><button type="button" class="passage-stage-open" data-passage-open="concept" title="Concept illustrations first, then the recordings">Concepts</button><button type="button" id="stage-ov-btn" title="All slides (O)">Overview</button><button type="button" id="stage-notes-btn" aria-pressed="false" title="Speaker notes (N)">Notes</button><button type="button" id="stage-pres-btn" title="Open your notes, the next slide and the timers in a separate window (S)">Speaker view</button><button type="button" id="stage-exit">Leave</button></span></div>
+  <div class="stage-bar" id="stage-bar" title="Keys: → next · ← back · S presenter view · O overview · N notes · T stop the build timer · C copy the prompt · B blank · Esc leave"><button type="button" class="stage-time" id="stage-time" title="Time since you started presenting. Click to restart it.">0:00</button><span id="stage-build-slot"><button type="button" class="stage-time build" id="stage-build" title="Time since you copied the prompt. Click (or press T) to stop it; click again to hide it." hidden>⏱ 00:00</button></span><span class="stage-ch" id="stage-chapter"></span><span id="stage-pos">Slide 1</span><span class="bar-nav"><button type="button" id="stage-prev">Back</button><button type="button" id="stage-next">Next</button><select id="stage-jump" aria-label="Go to slide"></select><span id="stage-question-slot"><button type="button" id="stage-live" aria-pressed="false" hidden>Question off</button></span><button type="button" id="stage-fullscreen" aria-pressed="false">Fullscreen</button><button type="button" id="passage-dock-toggle" aria-pressed="false" hidden>App beside slides</button><button type="button" class="passage-stage-open" data-passage-open="concept" title="Concept illustrations first, then the recordings">Concepts</button><button type="button" id="stage-ov-btn" title="All slides (O)">Overview</button><button type="button" id="stage-game-btn" aria-pressed="false" title="Attention mode: a little phone with game videos in the empty space (G)">Attention mode</button><button type="button" id="stage-notes-btn" aria-pressed="false" title="Speaker notes (N)">Notes</button><button type="button" id="stage-pres-btn" title="Open your notes, the next slide and the timers in a separate window (S)">Speaker view</button><button type="button" id="stage-exit">Leave</button></span></div>
 </div>
 
 <button class="vote-open" type="button" id="vote-open" hidden>
@@ -4918,7 +4930,7 @@ html.presenting .gbar .spare-btn { display: none; }
   "volt-age": [
     "Hook: who here wants their work to actually fight climate change?",
     "Volt-Age is a Concordia-led research program on sustainable electrification, and students drive it.",
-    "You pick a problem that matters: better batteries, smarter buildings, more inclusive mobility. You work on transdisciplinary teams: engineers, computer scientists and more.",
+    "You pick a problem that matters: better batteries, smarter buildings, more inclusive mobility. You work on transdisciplinary teams: researchers from other disciplines, plus external and industry partners.",
     "Ideas get tested in the real world, in Living Labs with industry, government and Indigenous partners. And there is support: master’s scholarships and doctoral fellowships, open to students from anywhere.",
     "Come build it with us. Thanks to Volt-Age, we get to try to make a difference on climate. Even if it’s a tiny step, it counts.",
     "That’s me. Now let’s get started with app development. Next: speaking of local…"
@@ -6813,7 +6825,7 @@ body { padding-left: 0; padding-right: 0; } /* the bands run edge to edge; each 
 .stage #building-pilot-study .building-pilot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
 .stage #building-pilot-study .building-pilot li{display:grid;align-content:start;gap:16px}
 .stage #building-pilot-study .building-pilot img{width:62px;height:62px;object-fit:contain}
-#pv-next-click{font-weight:650;color:var(--a-link)}
+#pv-next-click{font-weight:650;color:var(--a-link)}#pv-next-game{margin-top:6px;font-weight:650;color:var(--a-link)}
 .dinner-route .stage .trip-stage .eyebrow{color:var(--a-link)}
 .trip-practice-sign{grid-column:2;grid-row:1 / span 5;align-self:center;margin:0;text-align:center}
 .trip-practice-sign img{width:100%;height:auto;border-radius:12px}
@@ -7736,7 +7748,7 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
     pv.innerHTML = '<div class="pv-top"><span class="pv-ch" id="pv-ch" hidden></span><span id="pv-pos">Waiting for the stage…</span><span class="pv-clock" id="pv-clock"></span></div>' +
       '<div class="pv-nav"><button type="button" class="back" id="pv-prev">Back</button><button type="button" id="pv-next">Next</button><p class="pv-keys">Use ← and → to move through the slides.</p></div>' +
       '<div class="pv-grid"><div class="pv-card"><p class="eyebrow" id="pv-eyebrow"></p><h1 id="pv-title">Waiting for the slides</h1><h2>Speaker notes</h2><ul class="pv-notes" id="pv-notes"></ul></div>' +
-      '<div class="pv-side"><div class="pv-card"><h2>Next slide</h2><p class="pv-next" id="pv-next-title">–</p><p id="pv-next-click" hidden></p></div>' +
+      '<div class="pv-side"><div class="pv-card"><h2>Next slide</h2><p class="pv-next" id="pv-next-title">–</p><p id="pv-next-click" hidden></p><p id="pv-next-game" hidden></p></div>' +
       '<div class="pv-card" id="pv-personal" hidden><label for="pv-personal-note">My notes for this slide</label><textarea id="pv-personal-note" rows="4" placeholder="Add an example, a quotation, or a reminder"></textarea><p id="pv-personal-status" role="status"></p></div>' +
       '<div class="pv-card"><h2>Time</h2><dl class="pv-time"><dt>Talk</dt><dd id="pv-elapsed">0:00</dd><dt>Plan</dt><dd id="pv-plan">–</dd><dt></dt><dd><span class="pv-delta" id="pv-delta" hidden></span></dd><dt>Build</dt><dd><span class="pv-build" id="pv-build">–</span></dd></dl></div></div></div>';
     document.body.appendChild(pv);
@@ -7786,6 +7798,8 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
       put("next-title", on ? String(st.next || "The end") : "–");
       $("next-click").hidden = !(on && st.nextClick);
       put("next-click", on && st.nextClick ? "Next click · " + st.nextClick : "");
+      $("next-game").hidden = !(on && st.nextGame);
+      put("next-game", on && st.nextGame ? "Game phone · " + st.nextGame : "");
       var list = $("notes"), c = on ? cues(String(st.id)) : [], sig = c.join("\n") + "|" + (on ? st.id : "");
       if (list.dataset.sig !== sig) {
         list.dataset.sig = sig; list.textContent = "";
@@ -8452,6 +8466,7 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
     m.i = cur + 1; m.n = deck.length;
     m.steps = steps.length ? steps.length + 1 : 0; m.step = steps.length ? 1 + steps.filter(function (x) { return x <= shownOf(t); }).length : 0; // as in "step 2 of 4"
     m.next = deck[cur + 1] ? slideTitle(deck[cur + 1]) : "";
+    m.nextGame = deck[cur + 1] && window.__gmNext ? window.__gmNext(cur + 2, deck.length, deck[cur + 1]) : ""; // Attention mode phone on the next slide
     if (m.steps && m.step < m.steps) {
       var upcomingStep = nextStep(t);
       var upcoming = slideSteps(t).find(function (node) {
@@ -8465,6 +8480,7 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
   var MSG_TO = location.origin && location.origin !== "null" ? location.origin : "*"; // "*" only from a file, where the origin is opaque
   function sameOrigin(e) { return MSG_TO === "*" || e.origin === location.origin; }
   window.addEventListener("pagehide", function () { if (presWin && !presWin.closed) presWin.close(); });
+  window.__gmSync = function () { syncPresenter(); };
   function syncPresenter() {
     if (!presWin) return;
     if (presWin.closed) { presWin = null; return; }
@@ -10541,31 +10557,295 @@ html[data-theme="dark"] .stage .teaching-svg .vx-badge{fill:#fff}
 })();
 
 </script><!-- site-navigation:end -->
-<script id="slide-overflow-repair">
+<script id="attention-mode">
+// 19 Nov 2026: Attention mode. A small phone plays game videos in the slide's empty space, oldest game on the
+// first slide to the newest on the last. It never covers or moves slide content: no empty space, no phone.
+// Videos are embedded from YouTube (linked, never downloaded). Toggle with the bar button or G; drag to nudge.
 (function () {
-  document.querySelectorAll("svg tspan").forEach(function (span) {
-    var text = span.textContent.trim();
-    if (text === "Two companies") {
-      span.textContent = "Two";
-      span.setAttribute("dy", "-1");
-      var second = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-      second.setAttribute("x", span.getAttribute("x") || "656");
-      second.setAttribute("dy", "14");
-      second.textContent = "companies";
-      span.parentNode.appendChild(second);
-      span.parentNode.style.fontSize = "13px";
-    } else if (text === "Core ML chooses the CPU, GPU or Neural Engine. From PyTorch? Convert with coremltools.") {
-      span.textContent = "Core ML chooses the CPU, GPU or Neural Engine.";
-      span.setAttribute("dy", "0");
-      var continuation = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
-      continuation.setAttribute("x", span.getAttribute("x") || "360");
-      continuation.setAttribute("dy", "22");
-      continuation.textContent = "From PyTorch? Convert with coremltools.";
-      span.parentNode.appendChild(continuation);
-      span.parentNode.setAttribute("y", "318");
-      span.parentNode.style.fontSize = "18px";
+  var GAMES = [
+    ["kmbx2dFkpR8", "Tennis for Two", 1958, 0], ["JYUQkQfuXmM", "Spacewar!", 1962, 20], ["2n7Nr733CA4", "Pong", 1972, 1],
+    ["3XBVhoeKb8M", "Space Invaders", 1978, 120], ["DRlQgdGLRP8", "Pac-Man", 1980, 30], ["gK6fetjxJRE", "Donkey Kong", 1981, 30],
+    ["3l_qRFdAI7c", "Tetris", 1984, 120], ["aO8dHB_tYxg", "Super Mario Bros.", 1985, 90], ["cOhzKOwoYq4", "Dangerous Dave 2", 1991, 2],
+    ["O4nQesRa-vM", "Sonic the Hedgehog", 1991, 120], ["OdhrDE5L7ds", "Road Rash", 1991, 120], ["OiwsGy70OII", "Doom", 1993, 20],
+    ["cMPoy9X2Mpo", "GTA III", 2001, 3600], ["Yg49w1LwG5M", "GTA Vice City", 2002, 3600], ["ekD5nMwVp-c", "GTA San Andreas", 2004, 3600],
+    ["OsnNlg_Sask", "Wii Sports", 2006, 60], ["x_1XQ2ifPEE", "Angry Birds", 2009, 30], ["l0aysU5iE5k", "Minecraft", 2011, 20],
+    ["ewaySr3dsdg", "Dark Souls", 2011, 3600], ["QWoF8S_F3Bo", "Skyrim", 2011, 5400], ["plUsPpUjOv0", "Subway Surfers", 2012, 90],
+    ["_d-A3XKVhng", "The Witcher 3", 2015, 60], ["7Ld3ozHZU10", "Fortnite", 2017, 30], ["7fdAuANtQYQ", "Red Dead Redemption 2", 2018, 300],
+    ["QdBZY2fkU-0", "GTA VI", 2026, 10], ["3fSHbWz2mTs", "GTA VI", 2026, 30], ["VQRLujxTm3c", "GTA VI", 2026, 10],
+    ["Sq1gocjekWE", "GTA VI", 2026, 30], ["j1MYkkr35-U", "GTA VI", 2026, 60]
+  ];
+  GAMES.sort(function (a, b) { return a[2] - b[2]; }); // keep the order by year
+  var stage = document.getElementById("stage"), inner = document.getElementById("stage-inner"),
+      btn = document.getElementById("stage-game-btn"), pos = document.getElementById("stage-pos");
+  if (!stage || !inner || !btn) return;
+  var on = false, timer = 0, fl = null, shownKey = "", dragged = false;
+  var MARGIN = 18, GAP = 20; // keep clear of slide content and the screen edge
+
+  // 19 Nov 2026: the slides that get the phone, chosen from a 1080p contact sheet (notes closed).
+  var SLIDES = ["promise", "section-why-app", "app-setup", "section-app-capabilities", "section-data-security", "db-protect",
+    "demo-ai", "demo-siri", "section-own-models", "section-release", "app-iteration", "thanks"];
+  var jump = document.getElementById("stage-jump");
+  function slideNum() { var m = /Slide (\d+) of (\d+)/.exec(pos ? pos.textContent : ""); return m ? [+m[1], +m[2]] : [1, 1]; }
+  function currentId() { var t = inner.querySelector(".topic"); return t ? t.id : (jump ? jump.value : ""); }
+  function nextId() { return jump && jump.selectedIndex >= 0 && jump.options[jump.selectedIndex + 1] ? jump.options[jump.selectedIndex + 1].value : ""; }
+  // One game per chosen slide, oldest to newest: the first games ever, then the classics, ending with GTA VI.
+  var PICK = ["kmbx2dFkpR8", "2n7Nr733CA4", "aO8dHB_tYxg", "cOhzKOwoYq4", "O4nQesRa-vM", "OdhrDE5L7ds",
+    "ekD5nMwVp-c", "ewaySr3dsdg", "QWoF8S_F3Bo", "_d-A3XKVhng", "7fdAuANtQYQ", "3fSHbWz2mTs"];
+  function gameForId(id) {
+    var k = SLIDES.indexOf(id); if (k < 0) return null;
+    for (var i = 0; i < GAMES.length; i++) if (GAMES[i][0] === PICK[k]) return GAMES[i];
+    return null;
+  }
+  function gameFor() { return gameForId(currentId()); }
+  // Speaker view: would the next slide have the phone? Lay it out off screen, hidden, and look for room.
+  // The stage's own fit(): the same zoom and position the real slide will get (pictures shrink first on a tall slide).
+  function fitLike(pin, t) {
+    var bar = document.getElementById("stage-bar"), notesBox = document.getElementById("stage-notes"), root = document.documentElement;
+    pin.style.transform = "translateX(-50%)";
+    var w, h;
+    revealed(t, function () {
+      var room0 = stage.clientHeight - Math.max(64, bar.offsetHeight + 32);
+      var limit = room0 * 0.97 / Math.min(1.6, (stage.clientWidth * 0.95) / pin.offsetWidth);
+      var vis = !root.classList.contains("dinner-route") ? [] : Array.prototype.filter.call(t.querySelectorAll(".visual-diagram svg, .phone-media img, .phone-media video, .trip-stage-phone video, .trip-stage-phone img, .siri-before-after img, .visual-proof-button img, .squeeze"), function (v) { v.style.maxHeight = ""; return v.getBoundingClientRect().height > 0; });
+      var nat = vis.map(function (v) { return v.getBoundingClientRect().height; });
+      if (vis.length && pin.offsetHeight > limit) {
+        var lo = 0.75, hi = 1;
+        for (var it = 0; it < 7; it++) { var f = (lo + hi) / 2; vis.forEach(function (v, k) { v.style.maxHeight = Math.floor(nat[k] * f) + "px"; }); if (pin.offsetHeight > limit) hi = f; else lo = f; }
+        vis.forEach(function (v, k) { v.style.maxHeight = Math.floor(nat[k] * lo) + "px"; });
+      }
+      w = pin.offsetWidth; h = pin.offsetHeight;
+    });
+    var room = stage.clientHeight - Math.max(64, bar.offsetHeight + 32), slideWidth = stage.clientWidth;
+    pin.style.left = (slideWidth / 2) + "px";
+    var sc = Math.min(slideWidth * 0.95 / w, room * 0.97 / h, 1.6), top = Math.max(12, (room - h * sc) / 2);
+    if (notesBox && !notesBox.hidden) {
+      var notesBottom = bar.getBoundingClientRect().top - stage.getBoundingClientRect().top - 12;
+      var slideBottom = notesBottom - notesBox.offsetHeight - 12;
+      sc = Math.min(sc, Math.max(1, slideBottom - 12) / h); top = Math.max(12, Math.min(top, slideBottom - h * sc));
     }
+    pin.style.top = top + "px"; pin.style.transform = "translateX(-50%) scale(" + sc.toFixed(3) + ")";
+  }
+  window.__gmNext = function (n, total, el) {
+    if (!on || !el || SLIDES.indexOf(el.id) < 0) return "";
+    var probe = document.createElement("div"); probe.setAttribute("aria-hidden", "true");
+    probe.style.cssText = "visibility:hidden;pointer-events:none;z-index:-1";
+    var pin = document.createElement("div"); pin.className = inner.className; pin.style.cssText = inner.style.cssText;
+    // The stage styles some slides by id, so the copy keeps its ids. It exists only for this one synchronous measurement.
+    probe.className = stage.className + " gm-probe";
+    var c = el.cloneNode(true); c.hidden = false;
+    c.querySelectorAll("video, iframe, audio").forEach(function (v) { v.removeAttribute("src"); v.querySelectorAll("source").forEach(function (x) { x.remove(); }); });
+    c.querySelectorAll("img").forEach(function (i) { i.loading = "lazy"; });
+    pin.appendChild(c); probe.appendChild(pin); document.body.appendChild(probe);
+    var spot = null; try { fitLike(pin, c); spot = findSpot(pin); } catch (e) { spot = null; }
+    probe.remove();
+    if (!spot) return "";
+    var g = gameForId(el.id); return g ? g[1] + " · " + g[2] : "";
+  };
+  function src(g) {
+    return "https://www.youtube-nocookie.com/embed/" + g[0] + "?autoplay=1&mute=1&controls=0&loop=1&playlist=" + g[0] +
+      "&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&cc_load_policy=0&fs=0&enablejsapi=1&origin=" +
+      encodeURIComponent(location.origin) + "&start=" + g[3];
+  }
+  // Everything visible on the slide, plus the notes, bar and progress, counts as taken space.
+  // Show every build step (and hide what a later step removes), run fn, then put everything back. Synchronous, so nothing flickers.
+  function revealed(t, fn) {
+    var els = t.querySelectorAll("[data-step]"), gone = t.querySelectorAll("[data-until]"), a = [], b = [];
+    Array.prototype.forEach.call(els, function (e, k) { a[k] = e.hidden; e.hidden = false; });
+    Array.prototype.forEach.call(gone, function (e, k) { b[k] = e.hidden; e.hidden = true; });
+    try { return fn(); } finally {
+      Array.prototype.forEach.call(els, function (e, k) { e.hidden = a[k]; });
+      Array.prototype.forEach.call(gone, function (e, k) { e.hidden = b[k]; });
+    }
+  }
+  function obstacles(root) {
+    root = root || inner;
+    var out = contentRects(root);
+    revealed(root, function () { contentRects(root).forEach(function (r) { out.push(r); }); }); // later clicks count too
+    out.content = out.slice();
+    var VW = innerWidth, VH = innerHeight;
+    ["stage-notes", "stage-bar", "stage-progress", "passage-dock", "stage-presenter-status", "stage-ov"].forEach(function (id) {
+      var e = document.getElementById(id); if (!e || e.hidden || !e.getClientRects().length) return;
+      var r = e.getBoundingClientRect(); if (r.width > 1 && r.height > 1) out.push(r);
+    });
+    return out;
+  }
+  function contentRects(root) {
+    var out = [], VW = innerWidth, VH = innerHeight, stageBg = getComputedStyle(stage).backgroundColor;
+    root.querySelectorAll("*").forEach(function (e) {
+      if (e.closest(".gm-float")) return;
+      var tag = e.tagName, r;
+      var graphic = /^(IMG|SVG|VIDEO|CANVAS|IFRAME|PICTURE|BUTTON|INPUT|SELECT)$/i.test(tag);
+      var text = false;
+      if (!graphic) {
+        for (var n = e.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && n.textContent.trim()) { text = true; break; }
+      }
+      var box = false;
+      if (!graphic) { // a text element with its own background or border keeps its whole box
+        var cs = getComputedStyle(e);
+        var bg = cs.backgroundColor; // a background that matches the stage is empty space, not content
+        box = (bg && !/rgba\(0, 0, 0, 0\)|transparent/.test(bg) && bg !== stageBg) || parseFloat(cs.borderTopWidth) > 0 || parseFloat(cs.borderLeftWidth) > 0 || cs.backgroundImage !== "none";
+      }
+      if (!graphic && !text && !box) return;
+      if (e.closest("svg") && tag.toLowerCase() !== "svg") return;
+      r = e.getBoundingClientRect();
+      if (text && !box && !graphic) { // a heading or paragraph box spans the whole column: measure where its text really is
+        var rg = document.createRange(), L = 1e9, T = 1e9, R2 = -1e9, B2 = -1e9;
+        for (var tn = e.firstChild; tn; tn = tn.nextSibling) {
+          if (tn.nodeType !== 3 || !tn.textContent.trim()) continue;
+          rg.selectNodeContents(tn);
+          Array.prototype.forEach.call(rg.getClientRects(), function (q) { if (q.width > 0) { L = Math.min(L, q.left); T = Math.min(T, q.top); R2 = Math.max(R2, q.right); B2 = Math.max(B2, q.bottom); } });
+        }
+        Array.prototype.forEach.call(e.children, function (k) { var q = k.getBoundingClientRect(); if (q.width > 0) { L = Math.min(L, q.left); T = Math.min(T, q.top); R2 = Math.max(R2, q.right); B2 = Math.max(B2, q.bottom); } });
+        if (R2 > L) r = { left: L, top: T, right: R2, bottom: B2, width: R2 - L, height: B2 - T };
+      }
+      if (r.width < 2 || r.height < 2 || r.right < 0 || r.bottom < 0 || r.left > VW || r.top > VH) return;
+      if (r.width > VW * 0.97 && r.height > VH * 0.9) return; // a full-slide background, not content
+      out.push({ left: r.left, top: r.top, right: r.right, bottom: r.bottom });
+    });
+    return out;
+  }
+  // Where the phone goes (19 Nov plan): one size on every slide, in one of two spots inside the slide's own frame,
+  // flush with its right edge: level with the title (top-right), else level with the last row of content
+  // (bottom-right). Neither spot free: no phone on that slide.
+  function phoneSize() { var h = Math.round(innerHeight * 0.22); return { w: Math.round(h * 9 / 19.5), h: h }; }
+  function findSpot(root) {
+    root = root || inner;
+    var obs = obstacles(root), c = obs.content, sz = phoneSize(), w = sz.w, h = sz.h;
+    if (!c.length) return null;
+    var fr = root.getBoundingClientRect(), R = -1e9, B = -1e9;
+    c.forEach(function (r) { R = Math.max(R, r.right); B = Math.max(B, r.bottom); });
+    var head = root.querySelector("header") || root.querySelector("h1, h2, h3");
+    var top = head ? head.getBoundingClientRect().top : fr.top;
+    // just beside the content's right edge first, then flush with it, then with the slide frame's edge
+    var xs = [Math.round(R + GAP * 1.5), Math.round(Math.min(R, innerWidth - MARGIN) - w), Math.round(Math.min(fr.right, innerWidth - MARGIN) - w)]; // beside the content, then inside it
+    var slots = [];
+    xs.forEach(function (x) { slots.push([x, Math.round(top), "top-right"], [x, Math.round(B - h), "bottom-right"]); });
+    function free(x, y) {
+      if (x < MARGIN || y < MARGIN || x + w > innerWidth - MARGIN || y + h > innerHeight - MARGIN) return false;
+      for (var i = 0; i < obs.length; i++) {
+        var o = obs[i];
+        if (o.left - GAP < x + w && o.right + GAP > x && o.top - GAP < y + h && o.bottom + GAP > y) return false;
+      }
+      return true;
+    }
+    for (var i = 0; i < slots.length; i++) if (free(slots[i][0], slots[i][1])) return { x: slots[i][0], y: slots[i][1], w: w, h: h, slot: slots[i][2] };
+    return null;
+  }
+  // YouTube shows its play/pause icon for a few seconds after a video starts. Keep the video behind the title card
+  // until it has played for 5 s (the icon has faded by then), then fade it in. Fallback: show it after 12 s.
+  function watch(box, f) {
+    var shown = false, playingSince = 0, poke = 0;
+    function show() { if (!shown) { shown = true; box.classList.add("ready"); } }
+    function onMsg(e) {
+      if (e.source !== f.contentWindow || typeof e.data !== "string") return;
+      var d; try { d = JSON.parse(e.data); } catch (x) { return; }
+      var st = d.event === "onStateChange" ? d.info : (d.info && d.info.playerState);
+      if (st === 1 && !playingSince) { playingSince = Date.now(); setTimeout(show, 5000); }
+    }
+    addEventListener("message", onMsg);
+    f.addEventListener("load", function () {
+      var n = 0; poke = setInterval(function () {
+        if (!f.isConnected || playingSince || ++n > 20) { clearInterval(poke); return; }
+        try { f.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*"); } catch (x) {}
+      }, 400);
+    });
+    setTimeout(show, 12000);
+    var gone = new MutationObserver(function () { if (!box.isConnected) { removeEventListener("message", onMsg); clearInterval(poke); gone.disconnect(); } });
+    gone.observe(stage, { childList: true });
+  }
+  // The phone for a game. The next slide's game is built ahead of time, parked out of sight, so its video is
+  // already playing (and past YouTube's play/pause icon) when you get there.
+  var parked = null;
+  function build(g) {
+    var el = document.createElement("div"); el.className = "gm-float"; el.setAttribute("data-game", g[0]);
+    el.setAttribute("role", "img"); el.setAttribute("aria-label", g[1] + " (" + g[2] + ") gameplay");
+    if (window.claude) { // Claude's artifact pages block YouTube players; the GitHub copy and a local copy play them
+      el.innerHTML = '<span class="gm-note"><b></b>Plays on the GitHub or local copy</span>';
+      el.querySelector("b").textContent = g[1] + " · " + g[2];
+    } else {
+      var wait = document.createElement("span"); wait.className = "gm-wait"; wait.innerHTML = "<b></b><span></span>";
+      wait.querySelector("b").textContent = g[1]; wait.querySelector("span").textContent = g[2]; el.appendChild(wait);
+      var f = document.createElement("iframe"); f.title = g[1] + " gameplay"; f.src = src(g); f.tabIndex = -1;
+      f.allow = "autoplay; encrypted-media; picture-in-picture"; f.referrerPolicy = "strict-origin-when-cross-origin";
+      el.insertBefore(f, wait); watch(el, f);
+      var t = document.createElement("span"); t.className = "gm-tag"; t.textContent = g[1] + " · " + g[2]; el.appendChild(t);
+    }
+    var c = document.createElement("span"); c.className = "gm-cover"; el.appendChild(c);
+    drag(el); return el;
+  }
+  function park(g) {
+    if (!g || (fl && fl.getAttribute("data-game") === g[0]) || (parked && parked.getAttribute("data-game") === g[0])) return;
+    if (parked) parked.remove();
+    parked = build(g); parked.classList.add("gm-parked");
+    parked.style.width = "210px"; parked.style.height = "455px";
+    var fr = parked.querySelector("iframe"); if (fr) fr.style.width = Math.ceil(455 * 1.28 * 16 / 9) + "px";
+    stage.appendChild(parked);
+  }
+  function remove() {
+    if (fl) { fl.remove(); fl = null; }
+    if (parked) { parked.remove(); parked = null; }
+    shownKey = "";
+  }
+  function place(force) {
+    if (!on || stage.hidden) { remove(); return; }
+    var g = gameFor(), key = pos ? pos.textContent.replace(/ · step.*/, "") : "", ng = gameForId(nextId());
+    if (fl && key === shownKey && dragged && !force) return; // the presenter put it somewhere: leave it
+    if (key !== shownKey) dragged = false;
+    if (fl) fl.style.visibility = "hidden"; // measure the slide without the phone
+    var spot = g ? findSpot() : null; // not one of the chosen slides, or (on another screen size) no room: no phone
+    if (!spot) { if (fl) { fl.remove(); fl = null; } shownKey = key; park(ng); return; }
+    if (!fl || fl.getAttribute("data-game") !== g[0]) {
+      if (fl) fl.remove();
+      if (parked && parked.getAttribute("data-game") === g[0]) { fl = parked; parked = null; fl.classList.remove("gm-parked"); }
+      else { fl = build(g); stage.appendChild(fl); }
+    }
+    shownKey = key;
+    fl.style.left = spot.x + "px"; fl.style.top = spot.y + "px"; fl.style.width = spot.w + "px"; fl.style.height = spot.h + "px";
+    var fr = fl.querySelector("iframe"); if (fr) fr.style.width = Math.ceil(spot.h * 1.28 * 16 / 9) + "px";
+    fl.style.borderRadius = Math.round(spot.w * 0.13) + "px";
+    fl.style.borderWidth = spot.w < 100 ? "3px" : "";
+    fl.style.visibility = "";
+    park(ng); // get the next slide's game ready
+  }
+  function drag(el) {
+    var sx, sy, ox, oy, id = null;
+    el.addEventListener("pointerdown", function (e) {
+      id = e.pointerId; el.setPointerCapture(id); el.classList.add("dragging");
+      sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop; e.preventDefault();
+    });
+    el.addEventListener("pointermove", function (e) {
+      if (id !== e.pointerId) return;
+      var x = Math.min(Math.max(0, ox + e.clientX - sx), innerWidth - el.offsetWidth), y = Math.min(Math.max(0, oy + e.clientY - sy), innerHeight - el.offsetHeight);
+      el.style.left = x + "px"; el.style.top = y + "px"; dragged = true;
+    });
+    function end(e) { if (id === e.pointerId) { id = null; el.classList.remove("dragging"); stage.focus({ preventScroll: true }); } }
+    el.addEventListener("pointerup", end); el.addEventListener("pointercancel", end);
+  }
+  function soon(ms) { clearTimeout(timer); timer = setTimeout(function () { place(false); }, ms == null ? 500 : ms); }
+  function set(v) {
+    on = v; btn.setAttribute("aria-pressed", String(on)); btn.textContent = on ? "Attention mode on" : "Attention mode";
+    if (on) place(true); else remove();
+    if (window.__gmSync) window.__gmSync();
+  }
+  btn.addEventListener("click", function () { set(!on); stage.focus({ preventScroll: true }); });
+  document.addEventListener("keydown", function (e) {
+    if ((e.key !== "g" && e.key !== "G") || e.metaKey || e.ctrlKey || e.altKey || stage.hidden) return;
+    var t = e.target; if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
+    e.preventDefault(); set(!on);
   });
+  // While Attention mode is off, quietly get this slide's game ready (after 1.5 s on a slide that has room for it),
+  // so pressing G shows it at once instead of after YouTube's start-up.
+  var warmT = 0;
+  function warm() {
+    clearTimeout(warmT);
+    warmT = setTimeout(function () { var g = gameFor(); if (!on && !stage.hidden && g && findSpot()) park(g); }, 1500);
+  }
+  if (pos) new MutationObserver(function () { if (on) soon(); else warm(); }).observe(pos, { childList: true, characterData: true, subtree: true });
+  new MutationObserver(function () { if (stage.hidden) remove(); else if (on) soon(); else warm(); }).observe(stage, { attributes: true, attributeFilter: ["hidden"] });
+  ["stage-notes", "passage-dock", "stage-ov"].forEach(function (id) {
+    var e = document.getElementById(id); if (e) new MutationObserver(function () { if (on) { dragged = false; soon(250); } }).observe(e, { attributes: true, attributeFilter: ["hidden", "class", "style"] });
+  });
+  addEventListener("resize", function () { if (on) { dragged = false; soon(300); } });
 })();
 </script>
 <!-- static-copy:start (GitHub Pages: live audience features only run on Claude) -->
